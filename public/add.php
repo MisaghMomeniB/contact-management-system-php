@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST["name"] ?? "");
     $phone = trim($_POST["phone"] ?? "");
     $address = trim($_POST["address"] ?? "");
+    $email = trim($_POST["email"] ?? "");
 
     // Validation
     if (empty($name)) {
