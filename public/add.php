@@ -1,6 +1,6 @@
 <?php
 // Connect to the database
-require_once "config.php";
+require_once "../config/config.php";
 
 // Initialize variables
 $name = $phone = $address = $email = "";

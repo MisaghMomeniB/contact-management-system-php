@@ -1,6 +1,6 @@
 <?php
 // Connect to the database
-require_once 'config.php';
+require_once "../config/config.php";
 
 // Fetch all contacts
 $sql = "SELECT * FROM contacts ORDER BY created_at DESC";
@@ -115,12 +115,22 @@ $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <tbody>
                             <?php foreach ($contacts as $contact): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($contact['NAME']); ?></td>
-                                    <td><?php echo htmlspecialchars($contact['phone']); ?></td>
-                                    <td><?php echo htmlspecialchars($contact['address']); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $contact["NAME"],
+                                    ); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $contact["phone"],
+                                    ); ?></td>
+                                    <td><?php echo htmlspecialchars(
+                                        $contact["address"],
+                                    ); ?></td>
                                     <td class="text-center">
-                                        <a href="edit.php?id=<?php echo $contact['id']; ?>" class="btn btn-warning btn-sm">✏️ Edit</a>
-                                        <a href="delete.php?id=<?php echo $contact['id']; ?>"
+                                        <a href="edit.php?id=<?php echo $contact[
+                                            "id"
+                                        ]; ?>" class="btn btn-warning btn-sm">✏️ Edit</a>
+                                        <a href="delete.php?id=<?php echo $contact[
+                                            "id"
+                                        ]; ?>"
                                             class="btn btn-danger btn-sm"
                                             onclick="return confirm('Are you sure you want to delete this contact?');">🗑️ Delete</a>
                                     </td>

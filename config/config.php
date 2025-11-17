@@ -2,7 +2,7 @@
 $host = "localhost";
 $dbname = "contact_management"; // Database Name
 $username = "root";
-$password = ""; // Database Password
+$password = "Root@12345!"; // Database Password
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
