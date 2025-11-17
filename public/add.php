@@ -1,22 +1,22 @@
 <?php
 // Connect to the database
-require_once 'config.php';
+require_once "config.php";
 
 // Initialize variables
-$name = $phone = $address = '';
+$name = $phone = $address = $email = "";
 $errors = [];
-$success = '';
+$success = "";
 
 // Handle form submission
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get form data
-    $name = trim($_POST['name'] ?? '');
-    $phone = trim($_POST['phone'] ?? '');
-    $address = trim($_POST['address'] ?? '');
+    $name = trim($_POST["name"] ?? "");
+    $phone = trim($_POST["phone"] ?? "");
+    $address = trim($_POST["address"] ?? "");
 
     // Validation
     if (empty($name)) {
-        $errors[] = 'Name is required.';
+        $errors[] = "Name is required.";
     }
     //    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     //        $errors[] = 'Invalid email format.';
@@ -25,21 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // If no errors, insert into database
     if (empty($errors)) {
         try {
-            $sql = "INSERT INTO contacts (name, phone, email, address) VALUES (:name, :phone, :email, :address)";
+            $sql =
+                "INSERT INTO contacts (name, phone, email, address) VALUES (:name, :phone, :email, :address)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
-                'name' => $name,
-                'phone' => $phone,
-                'email' => $email,
-                'address' => $address
+                "name" => $name,
+                "phone" => $phone,
+                "email" => $email,
+                "address" => $address,
             ]);
-            $success = 'Contact added successfully!';
+            $success = "Contact added successfully!";
             // Clear form fields after successful submission
-            $name = $phone = $email = $address = '';
+            $name = $phone = $email = $address = "";
             // Redirect to index.php after 2 seconds
             header("Refresh: 2; url=index.php");
         } catch (PDOException $e) {
-            $errors[] = 'Error adding contact: ' . $e->getMessage();
+            $errors[] = "Error adding contact: " . $e->getMessage();
         }
     }
 }
@@ -91,7 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <form method="POST" action="add.php">
             <div class="form-group">
                 <label for="name">Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars($name); ?>"
+                <input type="text" class="form-control" id="name" name="name" value="<?php echo htmlspecialchars(
+                    $name,
+                ); ?>"
                     required>
             </div>
             <div class="form-group">
@@ -102,13 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!--        <div class="form-group">-->
             <!--            <label for="email">Email</label>-->
             <!--            <input type="email" class="form-control" id="email" name="email"-->
-            <!--                   value="--><?php //echo htmlspecialchars($email); 
-                                                ?><!--">-->
+            <!--                   value="--><?php
+//echo htmlspecialchars($email);
+?><!--">-->
             <!--        </div>-->
             <div class="form-group">
                 <label for="address">Address</label>
                 <textarea class="form-control" id="address" name="address"
-                    rows="4"><?php echo htmlspecialchars($address); ?></textarea>
+                    rows="4"><?php echo htmlspecialchars(
+                        $address,
+                    ); ?></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Add Contact</button>
             <a href="index.php" class="btn btn-secondary">Back to List</a>
